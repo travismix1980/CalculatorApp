@@ -1,0 +1,79 @@
+﻿@page "/calculator"
+
+<h3>Calculator Demo Using Blazor</h3>
+<hr />
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3">
+            <label>First Number: </label>
+        </div>
+        <div class="col-sm-4">
+            <input placeholder="Enter First Number" @bind="Num1" type="number"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <label>Second Number: </label>
+        </div>
+        <div class="col-sm-4">
+            <input placeholder="Enter Second Number" @bind="Num2" type="number" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <label>Result: </label>
+        </div>
+        <div class="col-sm-4">
+            <input @bind="Result" type="text" readonly />
+        </div>
+    </div>
+    <div class="row" >
+        <div class="col-2-sm">
+            <button class="btn btn-success" @onclick="Add">Add (+)</button>
+        </div>
+        <div class="col-2-sm">
+            <button class="btn btn-primary" @onclick="Subtract">Subtract (-)</button>
+        </div>
+        <div class="col-2-sm">
+            <button class="btn btn-secondary" @onclick="Multiply">Multiply (x)</button>
+        </div>
+        <div class="col-2-sm">
+            <button class="btn btn-danger" @onclick="Divide">Divide (/)</button>
+        </div>
+    </div>
+</div>
+
+@code {
+    public double Num1 { get; set; }
+    public double Num2 { get; set; }
+    public string? Result { get; set; }
+
+    void Add()
+    {
+        Result = (Num1 + Num2).ToString();
+    }
+
+    void Subtract()
+    {
+        Result = (Num1 - Num2).ToString();
+    }
+
+    void Multiply()
+    {
+        Result = (Num1 * Num2).ToString();
+    }
+
+    void Divide()
+    {
+        if(Num2 != 0)
+        {
+            Result = (Num1 / Num2).ToString();
+        }
+        else
+        {
+            Result = "Cannot divide by zero!!!";
+        }
+
+    }
+}

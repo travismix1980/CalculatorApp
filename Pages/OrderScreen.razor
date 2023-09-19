@@ -1,0 +1,121 @@
+﻿@page "/orderscreen"
+
+<h3>Getcha Some Hose Beast</h3>
+<hr />
+<div class="container container-fluid">
+    <div class="row">
+        <div class="col-sm-4">
+            <h2>Hoses</h2>
+        </div>
+        <div class="col-sm-4">
+            <h2>Desired Quantity</h2>
+        </div>
+        <div class="col-sm-4">
+            <h2>Subtotals</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <p>Craftsman $@craftsman</p>
+        </div>
+        <div class="col-sm-4">
+            <input type="number" @bind="CraftQty" @bind:event="oninput"/><br />
+            <input type="range" step="1" @bind="CraftQty" @bind:event="oninput"/>
+        </div>
+        <div class="col-sm-4">
+            <input type="number" readonly @bind="CraftSubTotal"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <p>NeverKink $@neverkink</p>
+        </div>
+        <div class="col-sm-4">
+            <input type="number" @bind="KinkQty" @bind:event="oninput" /><br />
+            <input type="range" step="1" @bind="KinkQty" @bind:event="oninput" />
+        </div>
+        <div class="col-sm-4">
+            <input type="number" readonly @bind="KinkSubTotal" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <p>Steel $@steel</p>
+        </div>
+        <div class="col-sm-4">
+            <input type="number" @bind="SteelQty" @bind:event="oninput" /><br />
+            <input type="range" step="1" @bind="SteelQty" @bind:event="oninput" />
+        </div>
+        <div class="col-sm-4">
+            <input type="number" readonly @bind="SteelSubTotal" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <p>Ultralite $@ultralite</p>
+        </div>
+        <div class="col-sm-4">
+            <input type="number" @bind="UltraQty" @bind:event="oninput" /><br />
+            <input type="range" step="1" @bind="UltraQty" @bind:event="oninput" />
+        </div>
+        <div class="col-sm-4">
+            <input type="number" readonly @bind="UltraSubTotal" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <p>Total Price</p>
+        </div>
+        <div class="col-sm-4">
+            <input readonly type="text" @bind="TotalPrice"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <button class="btn btn-primary" @onclick="CalculateTotalPrice">Calculate Total Price</button>
+        </div>
+        <div class="col-sm-6">
+            <button class="btn btn-danger" @onclick="NewOrder">New Order</button>
+        </div>
+    </div>
+</div>
+
+
+@code {
+    private double craftsman = 67.45;
+    private double neverkink = 99.99;
+    private double steel = 85.67;
+    private double ultralite = 47.92;
+    public string? TotalPrice { get; set; } = "$0.00";
+    public double CraftQty { get; set; } = 0;
+    public double KinkQty { get; set; } = 0;
+    public double SteelQty { get; set; } = 0;
+    public double UltraQty { get; set; } = 0;
+    public double CraftSubTotal { get; set; } = 0;
+    public double KinkSubTotal { get; set; } = 0;
+    public double SteelSubTotal { get; set; } = 0;
+    public double UltraSubTotal { get; set; } = 0;
+
+    void CalculateTotalPrice()
+    {
+        CraftSubTotal = CraftQty * craftsman;
+        KinkSubTotal = KinkQty * neverkink;
+        SteelSubTotal = SteelQty * steel;
+        UltraSubTotal = UltraQty * ultralite;
+        double temp = CraftSubTotal + KinkSubTotal + SteelSubTotal + UltraSubTotal;
+        TotalPrice = $"${temp.ToString("N2")}";
+    }
+
+    void NewOrder()
+    {
+        CraftQty = 0;
+        KinkQty = 0;
+        SteelQty = 0;
+        UltraQty = 0;
+        CraftSubTotal = 0;
+        KinkSubTotal = 0;
+        SteelSubTotal = 0;
+        UltraSubTotal = 0;
+        TotalPrice = "$0.00";
+    }
+}
